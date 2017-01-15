@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hbi.core.test.mapper.QueryMapper">
+
+    <resultMap id="orderResultMap" type="hbi.core.test.dto.OrderHeaders">
+        <id column="HEADER_ID" property="headerId"/>
+        <result column="ORDER_NUMBER" property="orderNumber"/>
+        <result column="COMPANY_ID" property="companyId"/>
+        <result column="ORDER_DATE" property="orderDate"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+        <result column="COMPANY_NAME" property="companyName"/>
+        <result column="CUSTOMER_NAME" property="customerName"/>
+        <result column="ITEM_DESCRIPTION" property="itemDiscripition"/>
+    </resultMap>
+
+    <!-- 综合查询-->
+    <select id="findOrderList" parameterType="hbi.core.test.dto.OrderHeaders" resultMap="orderResultMap">
+        SELECT
+       hap_om_order_headers.HEADER_ID,
+        hap_org_companys.COMPANY_NAME,
+        hap_ar_customers.CUSTOMER_NAME,
+        hap_om_order_headers.ORDER_NUMBER,
+        hap_om_order_headers.ORDER_STATUS,
+        hap_inv_inventory_items.ITEM_CODE,
+        hap_om_order_headers.ORDER_DATE
+        FROM
+        hap_ar_customers,
+        hap_inv_inventory_items,
+        hap_om_order_lines,
+        hap_om_order_headers,
+        hap_org_companys
+        WHERE
+        hap_om_order_lines.INVENTORY_ITEM_ID = hap_inv_inventory_items.INVENTORY_ITEM_ID
+        AND hap_ar_customers.COMPANY_ID = hap_om_order_lines.COMPANY_ID
+        AND hap_ar_customers.COMPANY_ID = hap_om_order_headers.COMPANY_ID
+        AND hap_ar_customers.COMPANY_ID = hap_om_order_lines.COMPANY_ID
+        AND hap_ar_customers.COMPANY_ID = hap_org_companys.COMPANY_ID
+
+    </select>
+
+
+</mapper>

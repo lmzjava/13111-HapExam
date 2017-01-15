@@ -1,0 +1,240 @@
+<#include "include/header.html">
+    <script src="${base.contextPath}/common/code?orderStatus=SYS.ORDER_STATUS" type="text/javascript"></script>
+
+    <script>
+        var viewModel= kendo.observable({
+            model:{},
+            queryResource: function (e) {
+                $('#grid').data('kendoGrid').dataSource.page(1);
+            },
+            resetForm: function (e) {
+                document.getElementById("myForm").reset();
+                $('#grid').data('kendoGrid').dataSource.page(1);
+            },
+            orderStatus: orderStatus
+        });
+    </script>
+
+    <div id="content-container">
+        <div id="page-content">
+            <div class="panel" style="padding: 0px;border:none;box-shadow: none;">
+                <form class="form-horizontal" id="myForm">
+                    <header>
+                        <span></span>
+                    </header>
+                    <div class="panel-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><@spring.message "companyname"/></label>
+                                    <div class="col-sm-4">
+                                        <span style="width: 256%;" class="k-widget k-lov k-header">
+                                            <span tabindex="-1" unselectable="on" class="k-dropdown-wrap k-state-default">
+                                                <input name="lov_input" class="k-input k-valid" autocomplete="off" style="width: 100%;" title="" aria-expanded="false" aria-disabled="false" type="text">
+                                                <span unselectable="on" class="k-icon k-i-close" title="clear" role="button" tabindex="-1"></span>
+                                                <span unselectable="on" class="k-select" aria-label="select" role="button" tabindex="-1">
+                                                    <span class="k-icon k-i-search"></span>
+                                                </span>
+                                            </span>
+                                            <input id="lov" name="lov" required="" data-bind="enabled: isEnabled, value:data.userId,text:data.userName" style="width: 100%; display: none;" data-role="lov" aria-disabled="false" class="k-valid">
+                                        </span>
+                                        <span class="k-invalid-msg" data-for="lov" style="display: none;"></span>
+                                    </div>
+                                    <script>
+                                        $("#lov").kendoLov($.extend(<@lov "LOV_ROLE"/>, {
+                                            model:{},
+                                            dataTextField: 'companyName',
+                                            query:function(e){
+                                            },
+                                            dataValueField:'companyId'
+                                        }));
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><@spring.message "customername"/></label>
+                                    <div class="col-sm-4">
+                                        <span style="width: 256%;" class="k-widget k-lov k-header">
+                                            <span tabindex="-1" unselectable="on" class="k-dropdown-wrap k-state-default">
+                                            <input name="lov_input" class="k-input k-valid" autocomplete="off" style="width: 100%;" title="" role="lov" aria-expanded="false" placeholder="lov" aria-disabled="false" type="text">
+                                            <span unselectable="on" class="k-icon k-i-close" title="clear" role="button" tabindex="-1"></span>
+                                            <span unselectable="on" class="k-select" aria-label="select" role="button" tabindex="-1">
+                                                <span class="k-icon k-i-search"></span>
+                                            </span>
+                                        </span>
+                                            <input id="lov1" name="lov" required="" placeholder="lov" data-bind="enabled: isEnabled, value:data.userId,text:data.userName" style="width: 100%; display: none;" data-role="lov" aria-disabled="false" class="k-valid">
+                                        </span>
+                                        <span class="k-invalid-msg" data-for="lov" style="display: none;"></span>
+                                    </div>
+                                    <script>
+                                        $("#lov1").kendoLov($.extend(<@lov "LOV_ROLE1"/>, {
+                                            model:{},
+                                            dataTextField: 'customerName',
+                                            query:function(e){
+                                            },
+                                            dataValueField:'customerId'
+                                        }));
+                                    </script>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><@spring.message "ordernumber"/></label>
+                                    <div class="col-sm-9">
+                                        <input id="ordernumber" type="text" style="width: 100%"
+                                               data-bind="value:model.nameLike" class="k-textbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><@spring.message "material"/></label>
+                                    <div class="col-sm-4">
+                                        <span style="width: 256%;" class="k-widget k-lov k-header">
+                                            <span tabindex="-1" unselectable="on" class="k-dropdown-wrap k-state-default">
+                                            <input name="lov_input" class="k-input k-valid" autocomplete="off" style="width: 100%;" title="" role="lov" aria-expanded="false" placeholder="lov" aria-disabled="false" type="text">
+                                            <span unselectable="on" class="k-icon k-i-close" title="clear" role="button" tabindex="-1"></span>
+                                            <span unselectable="on" class="k-select" aria-label="select" role="button" tabindex="-1">
+                                                <span class="k-icon k-i-search"></span>
+                                            </span>
+                                        </span>
+                                            <input id="lov2" name="lov" required="" placeholder="lov" data-bind="enabled: isEnabled, value:data.userId,text:data.userName" style="width: 100%; display: none;" data-role="lov" aria-disabled="false" class="k-valid">
+                                        </span>
+                                        <span class="k-invalid-msg" data-for="lov" style="display: none;"></span>
+                                    </div>
+                                    <script>
+                                        $("#lov2").kendoLov($.extend(<@lov "LOV_ROLE2"/>, {
+
+                                        }));
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><@spring.message "orderStatus"/></label>
+                                    <div class="col-sm-9">
+                                        <select id="status" data-role="dropdownlist" data-value-primitive="true" data-text-field="meaning" style="width:100%" data-value-field="value"
+                                                data-bind="source: orderStatus" >
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>kendo.bind($('#status'), viewModel);</script>
+                        </div>
+                    </div>
+                </form>
+
+                <div style="clear:both">
+                    <div id="grid"  class="table"></div>
+                </div>
+
+                <script>
+                    kendo.bind($('#myForm'), viewModel);
+                </script>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dataSource=new kendo.data.DataSource({
+            transport:{
+                read: {
+                    url: "${base.contextPath}/queryOrder/select",
+                    type: "GET",
+                    dataType: "json",
+                },
+                parameterMap: function (data, type) {
+                    if (type == "read") {
+                        return getCondition;
+                    }
+                }
+            },
+            schema: {
+                data: "rows",
+                total: "total",
+                model: {
+                    id: "headId",
+                    fields: {
+                        orderNumber: {validation: {required: true}},
+                        companyName: {validation: {required: true}},
+                        customerName: {validation: {required: true}},
+                        orderDate: {validation: {required: true}},
+                        orderStatus: {validation: {required: true}},
+                        orderMoney: {validation: {required: true}},
+                    }
+                }
+            },
+            batch: true,
+            serverPaging: true,
+            pageSize: 5
+        });
+        function getCondition(){
+            var status = $('#status').val();
+            if($('#status').val()=="null"&&$('#status').val()!="")
+                status="";
+            var condition={
+                companyId:$('#lov').val(),
+                customerId:$('#lov1').val(),
+                orderNumber:$('#ordernumber').val(),
+                itemId:$('#lov2').val(),
+                orderStatus:status
+            };
+            return condition;
+        }
+        var grid = $("#grid").kendoGrid({
+            toolbar: [{
+                name: "create",
+                template: '<span class="btn btn-primary k-grid-add"><@spring.message "hap.query"/></span>'
+            }, {
+                name: "reset",
+                template: '<span class="btn btn-success k-grid-save-changes" data-bind="click:resetForm"><@spring.message "hap.reset"/></span>'
+            },
+                {
+                    template: '<span id="delete" class="btn btn-danger"><@spring.message "hap.export"/></span>'
+                }],
+            dataSource: dataSource,
+            columns:[
+                {field: "orderNumber",
+                 title:'<@spring.message "orderNumber"/>'
+                },
+                {field: "companyName",
+                 title:'<@spring.message "companyname"/>'
+                },
+                {field: "customerName",
+                 title:'<@spring.message "customername"/>'
+                },
+                {field: "orderDate",
+                 title:'<@spring.message "orderDate"/>'
+                },
+                {field: "orderStatus",
+                 title:'<@spring.message "orderStatus"/>'
+                },
+                {field: "orderMoney",
+                 title:'<@spring.message "orderMoney"/>'
+                }
+            ],
+            rownumber: true,
+            selectable: "multiple rowbox",
+            editable: true,
+            pageable: {
+                pageSizes: ['All', 5, 10, 20, 50],
+                refresh: true,
+                buttonCount: 5
+            }
+        }).data("kendoGrid");
+        kendo.bind($('#grid'), viewModel);
+
+
+    </script>
+    </html>
